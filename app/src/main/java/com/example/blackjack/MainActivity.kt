@@ -1,28 +1,14 @@
 package com.example.blackjack
 
 import android.os.Bundle
-import android.widget.Toast
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
-import androidx.compose.foundation.Image
-import androidx.compose.foundation.layout.Arrangement
-import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.Row
-import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.material3.Button
-import androidx.compose.material3.Text
-import androidx.compose.runtime.Composable
-import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.saveable.rememberSaveable
-import androidx.compose.runtime.setValue
-import androidx.compose.ui.Alignment
-import androidx.compose.ui.Modifier
-import androidx.compose.ui.layout.ContentScale
-import androidx.compose.ui.platform.LocalContext
-import androidx.compose.ui.res.painterResource
-import com.example.blackjack.clases.Baraja
+import androidx.navigation.compose.NavHost
+import androidx.navigation.compose.composable
+import androidx.navigation.compose.rememberNavController
+import com.example.blackjack.clases.Rutas
+import com.example.blackjack.screens.eleccionModo
+import com.example.blackjack.screens.pantallapvp
 import com.example.blackjack.ui.theme.BlackJackTheme
 
 class MainActivity : ComponentActivity() {
@@ -30,14 +16,63 @@ class MainActivity : ComponentActivity() {
         super.onCreate(savedInstanceState)
         setContent {
             BlackJackTheme {
-                pantallaBase()
+
+                val navController = rememberNavController()
+
+                NavHost(navController = navController, startDestination = Rutas.PantallaInicio.ruta) {
+
+                    composable(Rutas.PantallaInicio.ruta) {
+                        eleccionModo(navController = navController)
+                    }
+                    
+                    composable(Rutas.Pantalla1vs1.ruta){
+                        pantallapvp(navController = navController)
+                    }
+
+                    composable(Rutas.PantallavsIA.ruta){
+
+                    }
+                    
+                    /*
+                    composable(
+                        Roots.pantalla4.route,
+                        arguments = listOf(
+                            navArgument("numerito")
+                            { type = NavType.IntType }
+                        )
+                    )
+                    { backStackEntry ->
+                        Screen4(
+                            navController = navController,
+                            numerito = backStackEntry.arguments?.getInt("numerito") ?: 0
+                        )
+
+                    }
+
+                    composable(
+                        Roots.pantalla4.route,
+                        arguments = listOf(
+                            navArgument("nombre")
+                            { type = NavType.StringType }
+                        )
+                    )
+                    { backStackEntry ->
+                        Screen5(
+                            navController = navController,
+                            nombre = backStackEntry.arguments?.getString("nombre").orEmpty()
+                        )
+
+                    }
+
+                     */
+
+                }
             }
         }
     }
 }
 
-@Composable
-fun pantallaBase(){
+/*
 
     var iniciado by rememberSaveable {
         mutableStateOf(true)
@@ -82,9 +117,10 @@ fun pantallaBase(){
         Image(painter = painterResource(id = if (dadaLaVuelta) idCarta else R.drawable.c53)
             , contentDescription = "carta"
             ,contentScale = ContentScale.Crop
-            ,modifier=Modifier.fillMaxWidth())
+            ,modifier= Modifier.fillMaxWidth())
 
-        Row(Modifier.fillMaxWidth(),
+        Row(
+            Modifier.fillMaxWidth(),
             horizontalArrangement = Arrangement.SpaceEvenly)
         {
             Button(onClick = actualizarCarta ) {
@@ -96,5 +132,4 @@ fun pantallaBase(){
             }
         }
     }
-
-}
+*/
