@@ -1,4 +1,4 @@
-package com.example.baraja.clases
+package com.example.blackjack.clases
 
 class Carta(nombreE:Nombre, paloE:Palo, puntosMinE:Int, puntosMaxE:Int, idDrawableE:Int) {
 

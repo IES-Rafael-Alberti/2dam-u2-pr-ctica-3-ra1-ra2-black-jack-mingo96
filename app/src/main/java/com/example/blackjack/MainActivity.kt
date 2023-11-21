@@ -1,4 +1,4 @@
-package com.example.baraja
+package com.example.blackjack
 
 import android.os.Bundle
 import android.widget.Toast
@@ -11,8 +11,6 @@ import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.material3.Button
-import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
@@ -21,13 +19,13 @@ import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
-import com.example.baraja.clases.Baraja
-import com.example.blackjack.R
+import com.example.blackjack.clases.Baraja
 import com.example.blackjack.ui.theme.BlackJackTheme
 
-class main : ComponentActivity() {
+class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContent {
@@ -81,7 +79,10 @@ fun pantallaBase(){
         horizontalAlignment = Alignment.CenterHorizontally,
         verticalArrangement = Arrangement.Center
     ){
-        Image(painter = painterResource(id = if (dadaLaVuelta) idCarta else R.drawable.c53), contentDescription = "carta",modifier=Modifier.fillMaxWidth())
+        Image(painter = painterResource(id = if (dadaLaVuelta) idCarta else R.drawable.c53)
+            , contentDescription = "carta"
+            ,contentScale = ContentScale.Crop
+            ,modifier=Modifier.fillMaxWidth())
 
         Row(Modifier.fillMaxWidth(),
             horizontalArrangement = Arrangement.SpaceEvenly)

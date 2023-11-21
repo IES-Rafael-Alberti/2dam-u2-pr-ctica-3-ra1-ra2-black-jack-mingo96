@@ -1,7 +1,6 @@
-package com.example.baraja.clases
+package com.example.blackjack.clases
 
 import android.content.Context
-import android.util.Range
 
 class Baraja {
 

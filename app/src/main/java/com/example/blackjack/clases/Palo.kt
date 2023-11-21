@@ -1,4 +1,4 @@
-package com.example.baraja.clases
+package com.example.blackjack.clases
 
 enum class Palo {
     CORAZONES,DIAMANTES,TREBOLES,PICAS
