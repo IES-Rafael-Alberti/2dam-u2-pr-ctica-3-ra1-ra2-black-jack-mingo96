@@ -2,21 +2,35 @@ package com.example.blackjack
 
 import android.annotation.SuppressLint
 import android.content.pm.ActivityInfo
+import android.os.Build
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
+import androidx.annotation.RequiresApi
+import androidx.navigation.NavType
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
+import androidx.navigation.navArgument
+import com.example.blackjack.clases.Jugador
 import com.example.blackjack.clases.Rutas
+import com.example.blackjack.screens.cambioTurno
 import com.example.blackjack.screens.eleccionModo
 import com.example.blackjack.screens.pantallapvp
 import com.example.blackjack.ui.theme.BlackJackTheme
 
 class MainActivity : ComponentActivity() {
+
+    lateinit var jugador1 : Jugador
+    lateinit var jugador2 : Jugador
+    @RequiresApi(Build.VERSION_CODES.TIRAMISU)
     @SuppressLint("SourceLockedOrientationActivity")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
+        jugador1 = Jugador()
+
+        jugador2 = Jugador()
 
         requestedOrientation=ActivityInfo.SCREEN_ORIENTATION_PORTRAIT
         setContent {
@@ -30,16 +44,22 @@ class MainActivity : ComponentActivity() {
                         eleccionModo(navController = navController)
                     }
                     
-                    composable(Rutas.Pantalla1vs1.ruta){
-                        pantallapvp(navController = navController)
+                    composable(Rutas.Pantalla1vs1.ruta, arguments = listOf(navArgument("turno"){type = NavType.BoolType})){
+                        argumentos->
+
+                        pantallapvp(navController = navController,
+                            jugadores = arrayOf(jugador1, jugador2),
+                            turno = argumentos.arguments!!.getBoolean("turno"))
                     }
 
                     composable(Rutas.PantallavsIA.ruta){
 
                     }
 
-                    composable(Rutas.PantallaCambioTurno.ruta){
+                    composable(Rutas.PantallaCambioTurno.ruta, arguments = listOf(navArgument("turno"){type = NavType.BoolType})){ argumentos ->
 
+                        cambioTurno(navController = navController,
+                            turno = argumentos.arguments!!.getBoolean("turno"))
                     }
 
                     composable(Rutas.PantallaResultado.ruta){

@@ -28,6 +28,7 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavHostController
+import androidx.navigation.navArgument
 import com.example.blackjack.R
 import com.example.blackjack.clases.Baraja
 import com.example.blackjack.clases.Carta
@@ -39,7 +40,9 @@ import kotlin.coroutines.coroutineContext
 val cartaBocaabajo = R.drawable.c53
 
 @Composable
-fun pantallapvp(navController: NavHostController) {
+fun pantallapvp(navController: NavHostController, jugadores:Array<Jugador>, turno :Boolean) {
+
+
 
     var iniciado by rememberSaveable {
         mutableStateOf(true)
@@ -62,21 +65,15 @@ fun pantallapvp(navController: NavHostController) {
         iniciado = false
     }
 
-    val reiniciar = {
-        Baraja.crearBaraja(contexto)
-        idCarta = Baraja.cartaActual.idDrawable
-        dadaLaVuelta = false
-    }
-
     var turno by rememberSaveable {
         mutableStateOf(false)
     }
 
     var jugador1 by remember {
-        mutableStateOf(Jugador())
+        mutableStateOf(jugadores[0])
     }
     var jugador2 by remember {
-        mutableStateOf(Jugador())
+        mutableStateOf(jugadores[1])
     }
 
     var robarCarta: () -> Boolean = {
@@ -171,6 +168,8 @@ fun pantallapvp(navController: NavHostController) {
                         .show()
                 }
                 turno = !turno
+
+                navController.navigate(Rutas.PantallaCambioTurno.ruta){ navArgument("turno"){turno} }
 
             }) {
                 Text(text = "dame carta")
