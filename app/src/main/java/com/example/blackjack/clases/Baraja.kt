@@ -27,7 +27,6 @@ class Baraja {
                 }
             establecerId(contexto)
             barajar()
-            dameCarta()
         }
 
         fun barajar() {

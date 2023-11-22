@@ -1,8 +1,10 @@
 package com.example.blackjack.screens
 
 import android.widget.Toast
-import androidx.compose.animation.core.estimateAnimationDurationMillis
+import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.Image
+import androidx.compose.foundation.border
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -11,7 +13,8 @@ import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.offset
-import androidx.compose.foundation.lazy.LazyRow
+import androidx.compose.foundation.shape.CircleShape
+import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Button
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -22,20 +25,19 @@ import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.clip
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavHostController
-import androidx.navigation.navArgument
 import com.example.blackjack.R
 import com.example.blackjack.clases.Baraja
 import com.example.blackjack.clases.Carta
 import com.example.blackjack.clases.Jugador
 import com.example.blackjack.clases.Rutas
-import org.intellij.lang.annotations.JdkConstants.HorizontalAlignment
-import kotlin.coroutines.coroutineContext
 
 val cartaBocaabajo = R.drawable.c53
 
@@ -67,12 +69,8 @@ fun pantallapvp(navController: NavHostController, jugadores:Array<Jugador>) {
         mutableStateOf(false)
     }
 
-    var jugador1 by remember {
-        mutableStateOf(jugadores[0])
-    }
-    var jugador2 by remember {
-        mutableStateOf(jugadores[1])
-    }
+    var jugador1 =jugadores[0]
+    var jugador2= jugadores[1]
 
     var robarCarta: () -> Boolean = {
 
@@ -119,7 +117,13 @@ fun pantallapvp(navController: NavHostController, jugadores:Array<Jugador>) {
 
         //esto es la gestion de como se muestran las cartas
         if (manoDeEsteTurno.invoke().isEmpty()) {
-            Image(painter = painterResource(id = cartaBocaabajo), contentDescription = "bocaAbajo")
+            Image(painter = painterResource(id = cartaBocaabajo),
+                contentDescription = "bocaAbajo",
+                contentScale = ContentScale.FillHeight,
+                modifier = Modifier
+                    .fillMaxHeight(0.5f)
+                    .fillMaxWidth()
+            )
         } else {
             Box(
                 Modifier
@@ -135,9 +139,12 @@ fun pantallapvp(navController: NavHostController, jugadores:Array<Jugador>) {
                         painter = painterResource(id = carta.idDrawable),
                         contentDescription = "carta ${carta.nombre} de ${carta.palo}",
                         contentScale = ContentScale.FillHeight,
-                        modifier = Modifier.offset(x, y)
+                        modifier = Modifier
+                            .offset(x, y)
+                            .fillMaxHeight()
                     )
 
+                    //en caso improvable de que hayan mas de 9 cartas en pantalla, las mostramos un poquito abajo
                     if (indice >= 9) {
                         y = 50.dp
                         x = (40 * (indice - 10)).dp
@@ -153,7 +160,11 @@ fun pantallapvp(navController: NavHostController, jugadores:Array<Jugador>) {
         Row(
             Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.SpaceEvenly
         ) {
-            Button(onClick = {
+            Image(painter = painterResource(id = R.drawable.otracarta),
+                contentDescription ="otra carta",
+                Modifier
+                    .border(4.dp,Color.Black, RoundedCornerShape(15.dp))
+                    .clickable {
                 //ejecuta un robar carta, si da falso es que no quedan, mostramos un toast, cambiamos de turno
                 if (!robarCarta.invoke()) {
                     Toast.makeText(contexto, "no hay mas cartas", Toast.LENGTH_SHORT)
@@ -165,19 +176,23 @@ fun pantallapvp(navController: NavHostController, jugadores:Array<Jugador>) {
                     Toast.makeText(contexto, "jugador ${if(turno)"2" else "1"} se ha pasado", Toast.LENGTH_SHORT)
                         .show()
                 }
+
+
+
+                if(!jugadorRival.invoke().haTerminado)navController.navigate(Rutas.PantallaCambioTurno.ruta)
+
                 turno = !turno
 
-                navController.navigate(Rutas.PantallaCambioTurno.ruta)
-
-            }) {
-                Text(text = "dame carta")
-            }
+            })
             Button(onClick = {
                 pasar()
+                navController.navigate(Rutas.PantallaCambioTurno.ruta)
+
             }) {
                 Text(text = "paso")
             }
         }
+
     }
 
 }

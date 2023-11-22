@@ -19,6 +19,7 @@ import com.example.blackjack.clases.Rutas
 import com.example.blackjack.screens.cambioTurno
 import com.example.blackjack.screens.eleccionModo
 import com.example.blackjack.screens.pantallapvp
+import com.example.blackjack.screens.resultado
 import com.example.blackjack.ui.theme.BlackJackTheme
 
 class MainActivity : ComponentActivity() {
@@ -30,10 +31,6 @@ class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        jugador1 = Jugador()
-
-        jugador2 = Jugador()
-
         requestedOrientation=ActivityInfo.SCREEN_ORIENTATION_PORTRAIT
         setContent {
             BlackJackTheme {
@@ -44,6 +41,8 @@ class MainActivity : ComponentActivity() {
 
                     composable(Rutas.PantallaInicio.ruta) {
                         eleccionModo(navController = navController)
+                        jugador1 = Jugador()
+                        jugador2 = Jugador()
                     }
                     
                     composable(Rutas.Pantalla1vs1.ruta,
@@ -65,7 +64,7 @@ class MainActivity : ComponentActivity() {
                     }
 
                     composable(Rutas.PantallaResultado.ruta){
-
+                        resultado(navController, arrayOf(jugador1, jugador2))
                     }
                     /*
                     composable(
