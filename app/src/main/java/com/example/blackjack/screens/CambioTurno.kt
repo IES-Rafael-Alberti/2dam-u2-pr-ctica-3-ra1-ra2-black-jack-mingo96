@@ -27,7 +27,7 @@ fun cambioTurno(navController: NavController, turno : Boolean) {
         verticalArrangement = Arrangement.Center,
         horizontalAlignment = Alignment.CenterHorizontally){
         Text(text = "pasale el movil al otro jugador")
-        Button(onClick = {navController.navigate(Rutas.Pantalla1vs1.ruta){ navArgument("turno"){!turno} } }) {
+        Button(onClick = {navController.navigate(Rutas.Pantalla1vs1.crearEntrada(!turno)) }) {
             Text(text = "pasar turno")
         }
     }

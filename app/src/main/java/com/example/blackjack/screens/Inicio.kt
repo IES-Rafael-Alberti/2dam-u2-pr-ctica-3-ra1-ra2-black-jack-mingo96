@@ -28,7 +28,7 @@ fun eleccionModo(navController: NavHostController){
 
         Image(painter = painterResource(id = R.drawable.pvp),
             contentDescription = "img1v1",
-            Modifier.clickable { navController.navigate(Rutas.Pantalla1vs1.ruta) }
+            Modifier.clickable { navController.navigate(Rutas.Pantalla1vs1.crearEntrada(false))}
                 .fillMaxWidth()
                 .clip(RoundedCornerShape(16.dp)),
             contentScale = ContentScale.FillWidth)

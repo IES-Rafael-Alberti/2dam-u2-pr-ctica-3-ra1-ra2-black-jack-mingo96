@@ -169,7 +169,7 @@ fun pantallapvp(navController: NavHostController, jugadores:Array<Jugador>, turn
                 }
                 turno = !turno
 
-                navController.navigate(Rutas.PantallaCambioTurno.ruta){ navArgument("turno"){turno} }
+                navController.navigate(Rutas.PantallaCambioTurno.crearEntrada(turno))
 
             }) {
                 Text(text = "dame carta")
