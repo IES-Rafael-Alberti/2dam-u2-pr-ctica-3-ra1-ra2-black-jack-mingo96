@@ -42,8 +42,6 @@ val cartaBocaabajo = R.drawable.c53
 @Composable
 fun pantallapvp(navController: NavHostController, jugadores:Array<Jugador>) {
 
-
-
     var iniciado by rememberSaveable {
         mutableStateOf(true)
     }
@@ -158,13 +156,13 @@ fun pantallapvp(navController: NavHostController, jugadores:Array<Jugador>) {
             Button(onClick = {
                 //ejecuta un robar carta, si da falso es que no quedan, mostramos un toast, cambiamos de turno
                 if (!robarCarta.invoke()) {
-                    Toast.makeText(navController.context, "no hay mas cartas", Toast.LENGTH_SHORT)
+                    Toast.makeText(contexto, "no hay mas cartas", Toast.LENGTH_SHORT)
                         .show()
                 }
 
                 if (jugadorActual.invoke().sePasa()){
                     jugadorActual.invoke().haTerminado = true
-                    Toast.makeText(navController.context, "jugador ${if(turno)"2" else "1"} se ha pasado", Toast.LENGTH_SHORT)
+                    Toast.makeText(contexto, "jugador ${if(turno)"2" else "1"} se ha pasado", Toast.LENGTH_SHORT)
                         .show()
                 }
                 turno = !turno

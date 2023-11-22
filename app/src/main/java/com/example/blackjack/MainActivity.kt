@@ -7,6 +7,8 @@ import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.annotation.RequiresApi
+import androidx.compose.animation.EnterTransition
+import androidx.compose.animation.ExitTransition
 import androidx.navigation.NavType
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
@@ -44,7 +46,8 @@ class MainActivity : ComponentActivity() {
                         eleccionModo(navController = navController)
                     }
                     
-                    composable(Rutas.Pantalla1vs1.ruta){
+                    composable(Rutas.Pantalla1vs1.ruta,
+                        exitTransition = { ExitTransition.None}){
 
                         pantallapvp(navController = navController,
                             jugadores = arrayOf(jugador1, jugador2)
