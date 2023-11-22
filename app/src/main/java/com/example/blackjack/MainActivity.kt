@@ -44,13 +44,10 @@ class MainActivity : ComponentActivity() {
                         eleccionModo(navController = navController)
                     }
                     
-                    composable(Rutas.Pantalla1vs1.ruta,
-                        arguments = listOf(navArgument("turno") {type = NavType.BoolType})){
-                            argumentos->
+                    composable(Rutas.Pantalla1vs1.ruta){
 
                         pantallapvp(navController = navController,
-                            jugadores = arrayOf(jugador1, jugador2),
-                            turno = argumentos.arguments?.getBoolean("turno")?:false
+                            jugadores = arrayOf(jugador1, jugador2)
                         )
                     }
 
@@ -58,17 +55,10 @@ class MainActivity : ComponentActivity() {
 
                     }
 
-                    composable(Rutas.PantallaCambioTurno.ruta,
-                        arguments = listOf(
-                            navArgument("turno")
-                            {type = NavType.BoolType}
-                            )
+                    composable(Rutas.PantallaCambioTurno.ruta
                     ){
-                            argumentos ->
 
-                        cambioTurno(navController = navController,
-                            turno = argumentos.arguments?.getBoolean("turno")?:false
-                        )
+                        cambioTurno(navController = navController)
                     }
 
                     composable(Rutas.PantallaResultado.ruta){

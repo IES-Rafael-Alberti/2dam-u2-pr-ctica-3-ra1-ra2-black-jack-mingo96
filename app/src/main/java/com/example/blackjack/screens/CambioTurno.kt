@@ -20,14 +20,14 @@ import com.example.blackjack.clases.Rutas
 import kotlin.time.Duration.Companion.seconds
 
 @Composable
-fun cambioTurno(navController: NavController, turno : Boolean) {
+fun cambioTurno(navController: NavController) {
 
 
     Column (Modifier.fillMaxSize(),
         verticalArrangement = Arrangement.Center,
         horizontalAlignment = Alignment.CenterHorizontally){
         Text(text = "pasale el movil al otro jugador")
-        Button(onClick = {navController.navigate(Rutas.Pantalla1vs1.crearEntrada(!turno)) }) {
+        Button(onClick = {navController.navigateUp()}) {
             Text(text = "pasar turno")
         }
     }

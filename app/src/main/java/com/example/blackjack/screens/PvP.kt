@@ -40,7 +40,7 @@ import kotlin.coroutines.coroutineContext
 val cartaBocaabajo = R.drawable.c53
 
 @Composable
-fun pantallapvp(navController: NavHostController, jugadores:Array<Jugador>, turno :Boolean) {
+fun pantallapvp(navController: NavHostController, jugadores:Array<Jugador>) {
 
 
 
@@ -169,7 +169,7 @@ fun pantallapvp(navController: NavHostController, jugadores:Array<Jugador>, turn
                 }
                 turno = !turno
 
-                navController.navigate(Rutas.PantallaCambioTurno.crearEntrada(turno))
+                navController.navigate(Rutas.PantallaCambioTurno.ruta)
 
             }) {
                 Text(text = "dame carta")
