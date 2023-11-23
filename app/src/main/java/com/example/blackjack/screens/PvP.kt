@@ -13,6 +13,7 @@ import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.offset
+import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Button
@@ -160,37 +161,51 @@ fun pantallapvp(navController: NavHostController, jugadores:Array<Jugador>) {
         Row(
             Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.SpaceEvenly
         ) {
-            Image(painter = painterResource(id = R.drawable.otracarta),
+            Image(painter = painterResource(id = R.drawable.mano),
                 contentDescription ="otra carta",
-                Modifier
-                    .border(4.dp,Color.Black, RoundedCornerShape(15.dp))
+                contentScale = ContentScale.Crop,
+                modifier = Modifier
+                    .padding(10.dp)
+                    .fillMaxWidth(0.45f)
                     .clickable {
-                //ejecuta un robar carta, si da falso es que no quedan, mostramos un toast, cambiamos de turno
-                if (!robarCarta.invoke()) {
-                    Toast.makeText(contexto, "no hay mas cartas", Toast.LENGTH_SHORT)
-                        .show()
-                }
+                        //ejecuta un robar carta, si da falso es que no quedan, mostramos un toast, cambiamos de turno
+                        if (!robarCarta.invoke()) {
+                            Toast
+                                .makeText(contexto, "no hay mas cartas", Toast.LENGTH_SHORT)
+                                .show()
+                        }
 
-                if (jugadorActual.invoke().sePasa()){
-                    jugadorActual.invoke().haTerminado = true
-                    Toast.makeText(contexto, "jugador ${if(turno)"2" else "1"} se ha pasado", Toast.LENGTH_SHORT)
-                        .show()
-                }
+                        if (jugadorActual
+                                .invoke()
+                                .sePasa()
+                        ) {
+                            jugadorActual.invoke().haTerminado = true
+                            Toast
+                                .makeText(
+                                    contexto,
+                                    "jugador ${if (turno) "2" else "1"} se ha pasado",
+                                    Toast.LENGTH_SHORT
+                                )
+                                .show()
+                        }
 
 
 
-                if(!jugadorRival.invoke().haTerminado)navController.navigate(Rutas.PantallaCambioTurno.ruta)
+                        if (!jugadorRival.invoke().haTerminado) navController.navigate(Rutas.PantallaCambioTurno.ruta)
 
-                turno = !turno
+                        turno = !turno
 
-            })
-            Button(onClick = {
-                pasar()
-                navController.navigate(Rutas.PantallaCambioTurno.ruta)
-
-            }) {
-                Text(text = "paso")
-            }
+                    })
+            Image(painter = painterResource(id = R.drawable.disminucion),
+                contentDescription = "paso",
+                contentScale = ContentScale.Crop,
+                modifier = Modifier
+                    .padding(10.dp)
+                    .fillMaxWidth()
+                    .clickable {
+                    pasar()
+                    navController.navigate(Rutas.PantallaCambioTurno.ruta)
+                })
         }
 
     }
