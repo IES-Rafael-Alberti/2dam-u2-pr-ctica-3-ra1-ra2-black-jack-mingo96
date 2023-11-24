@@ -14,6 +14,8 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.offset
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.lazy.LazyRow
+import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Button
@@ -130,28 +132,11 @@ fun pantallapvp(navController: NavHostController, jugadores:Array<Jugador>) {
                 Modifier
                     .fillMaxHeight(0.5f)
                     .fillMaxWidth()
-                    .offset(x = 40.dp)
             ) {
-                var x = (-40).dp
-                var y = 0.dp
 
-                for ((indice, carta) in manoDeEsteTurno.invoke().withIndex()) {
-                    Image(
-                        painter = painterResource(id = carta.idDrawable),
-                        contentDescription = "carta ${carta.nombre} de ${carta.palo}",
-                        contentScale = ContentScale.FillHeight,
-                        modifier = Modifier
-                            .offset(x, y)
-                            .fillMaxHeight()
-                    )
-
-                    //en caso improvable de que hayan mas de 9 cartas en pantalla, las mostramos un poquito abajo
-                    if (indice >= 9) {
-                        y = 50.dp
-                        x = (40 * (indice - 10)).dp
-                    } else {
-                        y = 0.dp
-                        x = (40 * indice).dp
+                LazyRow(){
+                    items(jugadorActual.invoke().mano){carta ->
+                        imagenCarta(carta = carta)
                     }
                 }
             }
@@ -174,6 +159,14 @@ fun pantallapvp(navController: NavHostController, jugadores:Array<Jugador>) {
                                 .makeText(contexto, "no hay mas cartas", Toast.LENGTH_SHORT)
                                 .show()
                         }
+
+                        Toast
+                            .makeText(
+                                contexto,
+                                "has sacado el ${Baraja.cartaActual.nombre} de ${Baraja.cartaActual.palo}",
+                                Toast.LENGTH_SHORT
+                            )
+                            .show()
 
                         if (jugadorActual
                                 .invoke()
@@ -203,11 +196,22 @@ fun pantallapvp(navController: NavHostController, jugadores:Array<Jugador>) {
                     .padding(10.dp)
                     .fillMaxWidth()
                     .clickable {
-                    pasar()
-                    navController.navigate(Rutas.PantallaCambioTurno.ruta)
-                })
+                        pasar()
+                        navController.navigate(Rutas.PantallaCambioTurno.ruta)
+                    })
         }
 
     }
 
+}
+
+@Composable
+fun imagenCarta(carta: Carta){
+    Image(
+        painter = painterResource(id = carta.idDrawable),
+        contentDescription = "carta ${carta.nombre} de ${carta.palo}",
+        contentScale = ContentScale.FillHeight,
+        modifier = Modifier
+            .fillMaxHeight()
+    )
 }
