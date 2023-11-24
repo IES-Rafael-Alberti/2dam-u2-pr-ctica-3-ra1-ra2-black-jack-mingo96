@@ -70,12 +70,9 @@ fun pantallapvp(navController: NavHostController, jugadores:Array<Jugador>) {
         mutableStateOf(false)
     }
 
-    var jugador1 =jugadores[0]
-    var jugador2= jugadores[1]
-
     var robarCarta: () -> Boolean = {
 
-        val esteJugador = if (!turno) jugador1 else jugador2
+        val esteJugador = if (!turno) jugadores[0] else jugadores[1]
 
         if (Baraja.dameCarta()) {
             esteJugador.recibeCarta(Baraja.cartaActual)
@@ -84,14 +81,14 @@ fun pantallapvp(navController: NavHostController, jugadores:Array<Jugador>) {
     }
 
     var manoDeEsteTurno: () -> MutableList<Carta> = {
-        if (!turno) jugador1.mano else jugador2.mano
+        if (!turno) jugadores[0].mano else jugadores[1].mano
     }
 
     var jugadorActual: () -> Jugador = {
-        if (!turno) jugador1 else jugador2
+        if (!turno) jugadores[0] else jugadores[1]
     }
     var jugadorRival: () -> Jugador = {
-        if (turno) jugador1 else jugador2
+        if (turno) jugadores[0] else jugadores[1]
     }
 
     var pasar :()->Unit={
@@ -103,7 +100,7 @@ fun pantallapvp(navController: NavHostController, jugadores:Array<Jugador>) {
         turno = !turno
     }
 
-    if (jugador1.haTerminado && jugador2.haTerminado){
+    if (jugadores[0].haTerminado && jugadores[1].haTerminado){
         navController.navigate(Rutas.PantallaResultado.ruta)
     }
 
