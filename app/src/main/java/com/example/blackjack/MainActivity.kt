@@ -16,6 +16,7 @@ import androidx.navigation.compose.rememberNavController
 import androidx.navigation.navArgument
 import com.example.blackjack.clases.Jugador
 import com.example.blackjack.clases.Rutas
+import com.example.blackjack.screens.VsIa
 import com.example.blackjack.screens.cambioTurno
 import com.example.blackjack.screens.eleccionModo
 import com.example.blackjack.screens.pantallapvp
@@ -53,8 +54,9 @@ class MainActivity : ComponentActivity() {
                         )
                     }
 
-                    composable(Rutas.PantallavsIA.ruta){
-
+                    composable(Rutas.PantallavsIA.ruta,
+                        exitTransition = { ExitTransition.None}){
+                        VsIa(navController = navController, jugadores = arrayOf(jugador1,jugador2))
                     }
 
                     composable(Rutas.PantallaCambioTurno.ruta
