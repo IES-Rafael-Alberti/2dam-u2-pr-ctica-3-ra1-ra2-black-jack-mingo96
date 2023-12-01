@@ -6,6 +6,7 @@ import android.os.Build
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
+import androidx.activity.viewModels
 import androidx.annotation.RequiresApi
 import androidx.compose.animation.EnterTransition
 import androidx.compose.animation.ExitTransition
@@ -22,11 +23,12 @@ import com.example.blackjack.screens.eleccionModo
 import com.example.blackjack.screens.pantallapvp
 import com.example.blackjack.screens.resultado
 import com.example.blackjack.ui.theme.BlackJackTheme
+import com.example.blackjack.viewModels.pvpViewModel
 
 class MainActivity : ComponentActivity() {
 
-    lateinit var jugador1 : Jugador
-    lateinit var jugador2 : Jugador
+    val pvpViewModel : pvpViewModel by viewModels()
+
     @RequiresApi(Build.VERSION_CODES.TIRAMISU)
     @SuppressLint("SourceLockedOrientationActivity")
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -42,22 +44,21 @@ class MainActivity : ComponentActivity() {
 
                     composable(Rutas.PantallaInicio.ruta) {
                         eleccionModo(navController = navController)
-                        jugador1 = Jugador()
-                        jugador2 = Jugador()
                     }
                     
                     composable(Rutas.Pantalla1vs1.ruta,
                         exitTransition = { ExitTransition.None}){
 
                         pantallapvp(navController = navController,
-                            jugadores = arrayOf(jugador1, jugador2)
+                            viewModel = pvpViewModel
                         )
                     }
 
+                    /*
                     composable(Rutas.PantallavsIA.ruta,
                         exitTransition = { ExitTransition.None}){
                         VsIa(navController = navController, jugadores = arrayOf(jugador1,jugador2))
-                    }
+                    }*/
 
                     composable(Rutas.PantallaCambioTurno.ruta
                     ){
@@ -66,7 +67,7 @@ class MainActivity : ComponentActivity() {
                     }
 
                     composable(Rutas.PantallaResultado.ruta){
-                        resultado(navController, arrayOf(jugador1, jugador2))
+                        //resultado(navController, arrayOf(jugador1, jugador2))
                     }
                     /*
                     composable(
