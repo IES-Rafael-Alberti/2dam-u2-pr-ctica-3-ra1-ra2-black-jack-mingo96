@@ -85,4 +85,34 @@ class pvpViewModel(application: Application) : AndroidViewModel(application) {
     fun ultimaCarta(): Carta {
         return jugadorActual().mano.last()
     }
+
+    fun turnoDeIa(){
+        if (jugadorActual().calcularPuntuacion()+Baraja.listaCartas.last().puntosMin>21) {
+            pasar()
+            jugadorActual().haTerminado = true
+        }else {
+            if (!jugadorActual().haTerminado) robarCarta()
+        }
+        turno.value = !turno.value!!
+    }
+
+
+    fun compararDatos():String{
+        var resultado1 = jugador1.value!!.sePasa()
+        var resultado2 = jugador2.value!!.sePasa()
+
+        return if (resultado1 && resultado2){
+            "nadie gana"
+        } else if(resultado1){
+            "gana jugador 2, jugador 1 se pasó"
+        } else if (resultado2){
+            "gana jugador 1, jugador 2 se pasó"
+        } else{
+            if (jugador1.value!!.calcularPuntuacion()>jugador2.value!!.calcularPuntuacion()){
+                "gana jugador 1 por puntuacion"
+            } else if (jugador1.value!!.calcularPuntuacion()<jugador2.value!!.calcularPuntuacion()){
+                "gana jugador 2 por puntuacion"
+            } else "empate por puntuaciones iguales"
+        }
+    }
 }

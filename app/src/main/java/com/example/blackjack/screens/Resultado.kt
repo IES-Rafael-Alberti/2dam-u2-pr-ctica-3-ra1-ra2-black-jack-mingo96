@@ -11,37 +11,22 @@ import androidx.compose.ui.Modifier
 import androidx.navigation.NavController
 import com.example.blackjack.clases.Jugador
 import com.example.blackjack.clases.Rutas
+import com.example.blackjack.viewModels.pvpViewModel
 
 @Composable
-fun resultado(navController: NavController, jugadores : Array<Jugador>){
+fun resultado(navController: NavController, pvpViewModel: pvpViewModel){
     Column (Modifier.fillMaxSize(),
         verticalArrangement = Arrangement.Center,
         horizontalAlignment = Alignment.CenterHorizontally){
 
-        Text(text = "el resultado es = ${compararDatos(jugadores)}")
+        Text(text = "el resultado es = ${pvpViewModel.compararDatos()}")
         
-        Button(onClick = { navController.navigate(Rutas.PantallaInicio.ruta) }) {
+        Button(onClick = {
+            navController.navigate(Rutas.PantallaInicio.ruta)
+            pvpViewModel.iniciar()
+        }) {
             Text(text = "pulsa para volver al menú principal")
         }
 
-    }
-}
-
-fun compararDatos(jugadores: Array<Jugador>):String{
-    var resultado1 = jugadores[0].sePasa()
-    var resultado2 = jugadores[1].sePasa()
-
-    return if (resultado1 && resultado2){
-        "nadie gana"
-    } else if(resultado1){
-        "gana jugador 2, jugador 1 se pasó"
-    } else if (resultado2){
-        "gana jugador 1, jugador 2 se pasó"
-    } else{
-        if (jugadores[0].calcularPuntuacion()>jugadores[1].calcularPuntuacion()){
-            "gana jugador 1 por puntuacion"
-        } else if (jugadores[0].calcularPuntuacion()<jugadores[1].calcularPuntuacion()){
-            "gana jugador 2 por puntuacion"
-        } else "empate por puntuaciones iguales"
     }
 }

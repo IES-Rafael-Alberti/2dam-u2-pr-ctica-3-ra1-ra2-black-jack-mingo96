@@ -8,14 +8,10 @@ import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.viewModels
 import androidx.annotation.RequiresApi
-import androidx.compose.animation.EnterTransition
 import androidx.compose.animation.ExitTransition
-import androidx.navigation.NavType
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
-import androidx.navigation.navArgument
-import com.example.blackjack.clases.Jugador
 import com.example.blackjack.clases.Rutas
 import com.example.blackjack.screens.VsIa
 import com.example.blackjack.screens.cambioTurno
@@ -54,54 +50,20 @@ class MainActivity : ComponentActivity() {
                         )
                     }
 
-                    /*
+
                     composable(Rutas.PantallavsIA.ruta,
                         exitTransition = { ExitTransition.None}){
-                        VsIa(navController = navController, jugadores = arrayOf(jugador1,jugador2))
-                    }*/
+                        VsIa(navController = navController, pvpViewModel)
+                    }
 
                     composable(Rutas.PantallaCambioTurno.ruta
                     ){
-
                         cambioTurno(navController = navController, pvpViewModel)
                     }
 
                     composable(Rutas.PantallaResultado.ruta){
-                        //resultado(navController, arrayOf(jugador1, jugador2))
+                        resultado(navController, pvpViewModel)
                     }
-                    /*
-                    composable(
-                        Roots.pantalla4.route,
-                        arguments = listOf(
-                            navArgument("numerito")
-                            { type = NavType.IntType }
-                        )
-                    )
-                    { backStackEntry ->
-                        Screen4(
-                            navController = navController,
-                            numerito = backStackEntry.arguments?.getInt("numerito") ?: 0
-                        )
-
-                    }
-
-                    composable(
-                        Roots.pantalla4.route,
-                        arguments = listOf(
-                            navArgument("nombre")
-                            { type = NavType.StringType }
-                        )
-                    )
-                    { backStackEntry ->
-                        Screen5(
-                            navController = navController,
-                            nombre = backStackEntry.arguments?.getString("nombre").orEmpty()
-                        )
-
-                    }
-
-                     */
-
                 }
             }
         }
