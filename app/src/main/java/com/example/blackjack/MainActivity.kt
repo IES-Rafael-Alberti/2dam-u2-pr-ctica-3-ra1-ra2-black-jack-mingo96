@@ -63,7 +63,7 @@ class MainActivity : ComponentActivity() {
                     composable(Rutas.PantallaCambioTurno.ruta
                     ){
 
-                        cambioTurno(navController = navController)
+                        cambioTurno(navController = navController, pvpViewModel)
                     }
 
                     composable(Rutas.PantallaResultado.ruta){

@@ -76,6 +76,9 @@ class pvpViewModel(application: Application) : AndroidViewModel(application) {
             jugadorActual().haTerminado = true
             Toast.makeText(contexto,"el jugador ${if(!turno.value!!) 1 else 2} se ha pasado", Toast.LENGTH_SHORT).show()
         }
-        turno.value= !turno.value!!
+    }
+
+    fun cambiaTurno(){
+        turno.value = !turno.value!!
     }
 }

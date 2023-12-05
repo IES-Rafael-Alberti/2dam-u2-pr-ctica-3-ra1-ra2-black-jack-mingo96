@@ -13,4 +13,8 @@ class Carta(nombreE:Nombre, paloE:Palo, puntosMinE:Int, puntosMaxE:Int, idDrawab
     var idDrawable =idDrawableE
 
     constructor():this(Nombre.NUEVE,Palo.PICAS, 1, 1, 1)
+
+    override fun toString(): String {
+        return "$nombre de $palo"
+    }
 }
