@@ -33,7 +33,7 @@ class pvpViewModel(application: Application) : AndroidViewModel(application) {
         turno.value = false
     }
 
-    private fun jugadorActual(): Jugador {
+    fun jugadorActual(): Jugador {
         return if (turno.value!!) jugador2.value!! else jugador1.value!!
     }
     private fun jugadorRival(): Jugador {
@@ -80,5 +80,9 @@ class pvpViewModel(application: Application) : AndroidViewModel(application) {
 
     fun cambiaTurno(){
         turno.value = !turno.value!!
+    }
+
+    fun ultimaCarta(): Carta {
+        return jugadorActual().mano.last()
     }
 }

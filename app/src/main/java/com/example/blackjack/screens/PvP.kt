@@ -106,7 +106,7 @@ fun mostrarCarta(carta: Carta, x: Dp = 0.dp, y:Dp = 0.dp){
         contentScale = ContentScale.FillHeight,
         modifier = Modifier
             .offset(x, y)
-            .fillMaxHeight()
+            .fillMaxHeight(0.9f)
     )
 }
 
