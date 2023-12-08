@@ -9,12 +9,11 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.navigation.NavController
-import com.example.blackjack.clases.Jugador
 import com.example.blackjack.clases.Rutas
-import com.example.blackjack.viewModels.pvpViewModel
+import com.example.blackjack.viewModels.PartidaViewModel
 
 @Composable
-fun resultado(navController: NavController, pvpViewModel: pvpViewModel){
+fun Resultado(navController: NavController, pvpViewModel: PartidaViewModel){
     Column (Modifier.fillMaxSize(),
         verticalArrangement = Arrangement.Center,
         horizontalAlignment = Alignment.CenterHorizontally){

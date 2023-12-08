@@ -1,5 +1,6 @@
 package com.example.blackjack.clases
 
+import android.annotation.SuppressLint
 import android.content.Context
 
 class Baraja {
@@ -41,6 +42,7 @@ class Baraja {
             return true
         }
 
+        @SuppressLint("DiscouragedApi")
         fun establecerId(contexto: Context){
 
             for((indice, carta) in listaCartas.withIndex()){

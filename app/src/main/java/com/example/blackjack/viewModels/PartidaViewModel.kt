@@ -6,17 +6,16 @@ import android.widget.Toast
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.ViewModel
 import com.example.blackjack.clases.Baraja
 import com.example.blackjack.clases.Carta
 import com.example.blackjack.clases.Jugador
 
 @SuppressLint("StaticFieldLeak")
-class pvpViewModel(application: Application) : AndroidViewModel(application) {
+class PartidaViewModel(application: Application) : AndroidViewModel(application) {
 
     private val contexto = getApplication<Application>().applicationContext
 
-    private val turno = MutableLiveData<Boolean>(false)
+    private val turno = MutableLiveData(false)
     val turnoPublico :LiveData<Boolean> = turno
 
     private val jugador1 = MutableLiveData<Jugador>()
@@ -30,6 +29,13 @@ class pvpViewModel(application: Application) : AndroidViewModel(application) {
         Baraja.barajar()
         jugador1.value = Jugador()
         jugador2.value = Jugador()
+        for (i in 1..2){
+            Baraja.dameCarta()
+            jugador1.value!!.recibeCarta(Baraja.cartaActual)
+            Baraja.dameCarta()
+            jugador2.value!!.recibeCarta(Baraja.cartaActual)
+        }
+
         turno.value = false
     }
 
@@ -43,7 +49,7 @@ class pvpViewModel(application: Application) : AndroidViewModel(application) {
 
 
 
-    fun robarCarta():Boolean{
+    private fun robarCarta():Boolean{
         if (Baraja.dameCarta()){
             jugadorActual().recibeCarta(Baraja.cartaActual)
             return true
@@ -87,19 +93,23 @@ class pvpViewModel(application: Application) : AndroidViewModel(application) {
     }
 
     fun turnoDeIa(){
-        if (jugadorActual().calcularPuntuacion()+Baraja.listaCartas.last().puntosMin>21) {
-            pasar()
-            jugadorActual().haTerminado = true
-        }else {
-            if (!jugadorActual().haTerminado) robarCarta()
+        if(!jugadorActual().haTerminado) {
+            if (jugadorActual().calcularPuntuacion() + Baraja.listaCartas.last().puntosMin > 21) {
+                pasar()
+                jugadorActual().haTerminado = true
+                Toast.makeText(contexto, "El rival ha pasado", Toast.LENGTH_SHORT).show()
+            } else {
+                if (!jugadorActual().haTerminado) robarCarta()
+                Toast.makeText(contexto, "El rival ha cogido otra carta", Toast.LENGTH_SHORT).show()
+            }
         }
         turno.value = !turno.value!!
     }
 
 
     fun compararDatos():String{
-        var resultado1 = jugador1.value!!.sePasa()
-        var resultado2 = jugador2.value!!.sePasa()
+        val resultado1 = jugador1.value!!.sePasa()
+        val resultado2 = jugador2.value!!.sePasa()
 
         return if (resultado1 && resultado2){
             "nadie gana"

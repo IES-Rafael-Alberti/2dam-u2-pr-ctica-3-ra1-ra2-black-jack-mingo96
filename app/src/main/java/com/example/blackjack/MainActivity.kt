@@ -14,16 +14,16 @@ import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import com.example.blackjack.clases.Rutas
 import com.example.blackjack.screens.VsIa
-import com.example.blackjack.screens.cambioTurno
-import com.example.blackjack.screens.eleccionModo
-import com.example.blackjack.screens.pantallapvp
-import com.example.blackjack.screens.resultado
+import com.example.blackjack.screens.CambioTurno
+import com.example.blackjack.screens.EleccionModo
+import com.example.blackjack.screens.Pantallapvp
+import com.example.blackjack.screens.Resultado
 import com.example.blackjack.ui.theme.BlackJackTheme
-import com.example.blackjack.viewModels.pvpViewModel
+import com.example.blackjack.viewModels.PartidaViewModel
 
 class MainActivity : ComponentActivity() {
 
-    val pvpViewModel : pvpViewModel by viewModels()
+    private val pvpViewModel : PartidaViewModel by viewModels()
 
     @RequiresApi(Build.VERSION_CODES.TIRAMISU)
     @SuppressLint("SourceLockedOrientationActivity")
@@ -39,13 +39,13 @@ class MainActivity : ComponentActivity() {
                 NavHost(navController = navController, startDestination = Rutas.PantallaInicio.ruta) {
 
                     composable(Rutas.PantallaInicio.ruta) {
-                        eleccionModo(navController = navController)
+                        EleccionModo(navController = navController)
                     }
                     
                     composable(Rutas.Pantalla1vs1.ruta,
                         exitTransition = { ExitTransition.None}){
 
-                        pantallapvp(navController = navController,
+                        Pantallapvp(navController = navController,
                             viewModel = pvpViewModel
                         )
                     }
@@ -58,11 +58,11 @@ class MainActivity : ComponentActivity() {
 
                     composable(Rutas.PantallaCambioTurno.ruta
                     ){
-                        cambioTurno(navController = navController, pvpViewModel)
+                        CambioTurno(navController = navController, pvpViewModel)
                     }
 
                     composable(Rutas.PantallaResultado.ruta){
-                        resultado(navController, pvpViewModel)
+                        Resultado(navController, pvpViewModel)
                     }
                 }
             }

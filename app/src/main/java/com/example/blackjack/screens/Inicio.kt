@@ -20,7 +20,7 @@ import com.example.blackjack.clases.Rutas
 
 
 @Composable
-fun eleccionModo(navController: NavHostController){
+fun EleccionModo(navController: NavHostController){
     Column(modifier = Modifier.fillMaxSize(),
         verticalArrangement = Arrangement.SpaceEvenly,
         horizontalAlignment = Alignment.CenterHorizontally) {

@@ -7,7 +7,4 @@ sealed class Rutas(val ruta : String) {
     object PantallavsIA : Rutas("PantallavsIA/")
     object PantallaResultado : Rutas("PantallaResultado/")
     object PantallaCambioTurno : Rutas("PantallaCambioTurno/")
-    object pantalla5 : Rutas("pantalla5/"){
-        fun createRoute(nombre : String)="pantalla5?/nombre=$nombre"
-    }
 }

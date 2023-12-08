@@ -7,7 +7,6 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.material3.Button
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -20,12 +19,11 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
-import androidx.lifecycle.ViewModel
 import androidx.navigation.NavController
-import com.example.blackjack.viewModels.pvpViewModel
+import com.example.blackjack.viewModels.PartidaViewModel
 
 @Composable
-fun cambioTurno(navController: NavController, viewModel : pvpViewModel) {
+fun CambioTurno(navController: NavController, viewModel : PartidaViewModel) {
 
 
 
@@ -60,7 +58,7 @@ fun cambioTurno(navController: NavController, viewModel : pvpViewModel) {
 
             if (!botonPulsado) {
                 Text(text = "Has sacado el ${viewModel.ultimaCarta()}")
-                mostrarCarta(carta = viewModel.ultimaCarta())
+                MostrarCarta(carta = viewModel.ultimaCarta())
                 Text(text = "Llevas una puntuacion de ${viewModel.jugadorActual().calcularPuntuacion()}")
             } else{
                 Image(painter = painterResource(id = cartaBocaabajo),

@@ -25,12 +25,12 @@ import androidx.navigation.NavHostController
 import com.example.blackjack.R
 import com.example.blackjack.clases.Carta
 import com.example.blackjack.clases.Rutas
-import com.example.blackjack.viewModels.pvpViewModel
+import com.example.blackjack.viewModels.PartidaViewModel
 
 val cartaBocaabajo = R.drawable.c53
 
 @Composable
-fun pantallapvp(navController: NavHostController, viewModel: pvpViewModel) {
+fun Pantallapvp(navController: NavHostController, viewModel: PartidaViewModel) {
 
     viewModel.comprobarTurno()
 
@@ -44,7 +44,7 @@ fun pantallapvp(navController: NavHostController, viewModel: pvpViewModel) {
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
         
-        textoJugador(viewModel = viewModel)
+        TextoJugador(viewModel = viewModel)
 
         //esto es la gestion de como se muestran las cartas
         if (viewModel.manoDeEsteTurno().isEmpty()) {
@@ -56,24 +56,24 @@ fun pantallapvp(navController: NavHostController, viewModel: pvpViewModel) {
                     .fillMaxWidth()
             )
         } else {
-            mostrarCartasConFormato(viewModel)
+            MostrarCartasConFormato(viewModel)
         }
 
-        botonesPVP(viewModel = viewModel, navController = navController)
+        Botones(viewModel = viewModel, navController = navController)
 
     }
 
 }
 
 @Composable
-fun textoJugador(viewModel: pvpViewModel){
+fun TextoJugador(viewModel: PartidaViewModel){
     Text(text = "Turno del jugador ${if (viewModel.turnoPublico.value!!) "2" else "1"}" +
             if(viewModel.rivalHaTerminado()) ", el jugador contrario ya terminó" else "",
         textAlign = TextAlign.Center)
 }
 
 @Composable
-fun mostrarCartasConFormato(viewModel: pvpViewModel){
+fun MostrarCartasConFormato(viewModel: PartidaViewModel){
     Box(
         Modifier
             .fillMaxHeight(0.5f)
@@ -84,7 +84,7 @@ fun mostrarCartasConFormato(viewModel: pvpViewModel){
         var y = 0.dp
 
         for ((indice, carta) in viewModel.manoDeEsteTurno().withIndex()) {
-            mostrarCarta(carta = carta, x = x, y = y)
+            MostrarCarta(carta = carta, x = x, y = y)
 
             //en caso improvable de que hayan mas de 9 cartas en pantalla, las mostramos un poquito abajo
             if (indice >= 9) {
@@ -99,7 +99,7 @@ fun mostrarCartasConFormato(viewModel: pvpViewModel){
 }
 
 @Composable
-fun mostrarCarta(carta: Carta, x: Dp = 0.dp, y:Dp = 0.dp){
+fun MostrarCarta(carta: Carta, x: Dp = 0.dp, y:Dp = 0.dp){
     Image(
         painter = painterResource(id = carta.idDrawable),
         contentDescription = "carta ${carta.nombre} de ${carta.palo}",
@@ -111,7 +111,7 @@ fun mostrarCarta(carta: Carta, x: Dp = 0.dp, y:Dp = 0.dp){
 }
 
 @Composable
-fun botonesPVP(viewModel: pvpViewModel, navController:NavController){
+fun Botones(viewModel: PartidaViewModel, navController:NavController){
     Row(
         Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.SpaceEvenly
     ) {
