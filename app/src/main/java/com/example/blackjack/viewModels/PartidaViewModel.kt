@@ -112,17 +112,17 @@ class PartidaViewModel(application: Application) : AndroidViewModel(application)
         val resultado2 = jugador2.value!!.sePasa()
 
         return if (resultado1 && resultado2){
-            "nadie gana"
+            "Nadie gana"
         } else if(resultado1){
-            "gana jugador 2, jugador 1 se pasó"
+            "Gana jugador 2, jugador 1 se pasó"
         } else if (resultado2){
-            "gana jugador 1, jugador 2 se pasó"
+            "Gana jugador 1, jugador 2 se pasó"
         } else{
             if (jugador1.value!!.calcularPuntuacion()>jugador2.value!!.calcularPuntuacion()){
-                "gana jugador 1 por puntuacion"
+                "Gana jugador 1 por puntuacion"
             } else if (jugador1.value!!.calcularPuntuacion()<jugador2.value!!.calcularPuntuacion()){
-                "gana jugador 2 por puntuacion"
-            } else "empate por puntuaciones iguales"
+                "Gana jugador 2 por puntuacion"
+            } else "Empate por puntuaciones iguales"
         }
     }
 }

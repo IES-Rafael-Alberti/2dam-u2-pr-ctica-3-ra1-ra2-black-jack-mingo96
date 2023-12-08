@@ -2,6 +2,7 @@ package com.example.blackjack.screens
 
 import androidx.activity.compose.BackHandler
 import androidx.compose.foundation.Image
+import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
@@ -16,9 +17,12 @@ import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import com.example.blackjack.viewModels.PartidaViewModel
 
@@ -37,13 +41,13 @@ fun CambioTurno(navController: NavController, viewModel : PartidaViewModel) {
         navController.navigateUp()
     }
 
-    Column (Modifier.fillMaxSize(),
+    Column (Modifier.fillMaxSize().background(Color(29, 110, 0)),
         verticalArrangement = Arrangement.SpaceEvenly,
         horizontalAlignment = Alignment.CenterHorizontally){
 
         Column (verticalArrangement = Arrangement.Center,
             horizontalAlignment = Alignment.CenterHorizontally){
-            Text(text = "Dale el móvil al otro jugador")
+            Text(text = "Dale el móvil al otro jugador", style = TextStyle(Color.White, fontSize = 20.sp))
             Button(onClick = {
                 botonPulsado = true
                 viewModel.cambiaTurno()
@@ -54,12 +58,12 @@ fun CambioTurno(navController: NavController, viewModel : PartidaViewModel) {
         }
 
 
-        Column (modifier = Modifier.fillMaxHeight(0.5f), horizontalAlignment = Alignment.CenterHorizontally){
+        Column (modifier = Modifier.fillMaxHeight(0.7f), horizontalAlignment = Alignment.CenterHorizontally, verticalArrangement = Arrangement.spacedBy(20.dp)){
 
             if (!botonPulsado) {
-                Text(text = "Has sacado el ${viewModel.ultimaCarta()}")
+                Text(text = "Has sacado el ${viewModel.ultimaCarta()}", style = TextStyle(Color.White, fontSize = 20.sp))
                 MostrarCarta(carta = viewModel.ultimaCarta())
-                Text(text = "Llevas una puntuacion de ${viewModel.jugadorActual().calcularPuntuacion()}")
+                Text(text = "Llevas una puntuacion de ${viewModel.jugadorActual().calcularPuntuacion()}", style = TextStyle(Color.White, fontSize = 20.sp))
             } else{
                 Image(painter = painterResource(id = cartaBocaabajo),
                     contentDescription = "carta bocaabajo",

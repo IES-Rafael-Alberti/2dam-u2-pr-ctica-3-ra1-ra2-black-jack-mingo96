@@ -20,7 +20,7 @@ class Baraja {
                         Carta(
                             nombre,
                             palo,
-                            indice + 1,
+                            if(indice<9)indice + 1 else 10,
                             if (nombre == Nombre.AS) 11 else indice + 1,
                             0
                         )
