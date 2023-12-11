@@ -24,30 +24,33 @@ import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
+import com.example.blackjack.ui.theme.tableGreen
 import com.example.blackjack.viewModels.PartidaViewModel
 
+/**escena para el intercambio de turno entre jugadores*/
 @Composable
 fun CambioTurno(navController: NavController, viewModel : PartidaViewModel) {
 
-
-
+    //guarda si el boton para ocultar los datos del jugador ha sido pulsado
     var botonPulsado by rememberSaveable {
         mutableStateOf(viewModel.rivalHaTerminado())
     }
 
+    //tiene el mismo efecto que pasar turno
     BackHandler {
         botonPulsado = true
         viewModel.cambiaTurno()
         navController.navigateUp()
     }
 
-    Column (Modifier.fillMaxSize().background(Color(29, 110, 0)),
+    Column (Modifier.fillMaxSize().background(tableGreen),
         verticalArrangement = Arrangement.SpaceEvenly,
         horizontalAlignment = Alignment.CenterHorizontally){
 
         Column (verticalArrangement = Arrangement.Center,
             horizontalAlignment = Alignment.CenterHorizontally){
             Text(text = "Dale el móvil al otro jugador", style = TextStyle(Color.White, fontSize = 20.sp))
+            //pasar turno
             Button(onClick = {
                 botonPulsado = true
                 viewModel.cambiaTurno()
@@ -57,7 +60,7 @@ fun CambioTurno(navController: NavController, viewModel : PartidaViewModel) {
             }
         }
 
-
+        //info del jugador, si el boton ha sido pulsado muestra una carta del revés y el boton de ocultar desactivado
         Column (modifier = Modifier.fillMaxHeight(0.7f), horizontalAlignment = Alignment.CenterHorizontally, verticalArrangement = Arrangement.spacedBy(20.dp)){
 
             if (!botonPulsado) {

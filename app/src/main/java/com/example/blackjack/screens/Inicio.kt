@@ -18,7 +18,7 @@ import androidx.navigation.NavHostController
 import com.example.blackjack.R
 import com.example.blackjack.clases.Rutas
 
-
+/**escena que permite al jugador seleccionar modo de juego, [Pantallapvp], o [VsIa]*/
 @Composable
 fun EleccionModo(navController: NavHostController){
     Column(modifier = Modifier.fillMaxSize(),

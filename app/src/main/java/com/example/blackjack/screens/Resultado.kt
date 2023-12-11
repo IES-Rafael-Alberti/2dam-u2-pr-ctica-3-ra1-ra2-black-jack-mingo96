@@ -1,5 +1,6 @@
 package com.example.blackjack.screens
 
+import androidx.activity.compose.BackHandler
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.Arrangement
@@ -8,8 +9,8 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
+import androidx.compose.material3.ElevatedButton
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
@@ -25,11 +26,21 @@ import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import com.example.blackjack.clases.Rutas
 import com.example.blackjack.viewModels.PartidaViewModel
+import com.example.blackjack.ui.theme.Brown
+import com.example.blackjack.ui.theme.tableGreen
 
 @Composable
 fun Resultado(navController: NavController, pvpViewModel: PartidaViewModel) {
+
+    BackHandler {
+        navController.navigate(Rutas.PantallaInicio.ruta)
+        pvpViewModel.iniciar()
+    }
+
     Column(
-        Modifier.fillMaxSize().background(Color(29, 110, 0)),
+        Modifier
+            .fillMaxSize()
+            .background(tableGreen),
         verticalArrangement = Arrangement.SpaceEvenly,
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
@@ -67,19 +78,26 @@ fun Resultado(navController: NavController, pvpViewModel: PartidaViewModel) {
             modifier = Modifier.padding(10.dp)
         )
 
-        Button(onClick = {
+        ElevatedButton(onClick = {
             navController.navigate(Rutas.PantallaInicio.ruta)
             pvpViewModel.iniciar()
         },
-            modifier = Modifier.fillMaxWidth(),
-            colors = ButtonDefaults.buttonColors(containerColor = Color.Green)) {
+            elevation = ButtonDefaults.elevatedButtonElevation(defaultElevation = 20.dp, pressedElevation = 2.dp),
+            modifier = Modifier.fillMaxWidth(0.8f),
+            colors = ButtonDefaults.buttonColors(containerColor = Brown)) {
             Text(text = "Pulsa para volver al menú principal",
                 style = TextStyle(
-                    fontSize = 40.sp,
-                    lineHeight = 50.sp,
+                    fontSize = 30.sp,
+                    lineHeight = 35.sp,
+                    color = Color.White,
                     textAlign = TextAlign.Center,
-                    fontWeight = FontWeight.Bold),
-                modifier = Modifier.padding(10.dp),)
+                    fontWeight = FontWeight.Bold,
+                    shadow = Shadow(
+                        color = Color.Black,
+                        offset = offset,
+                        blurRadius = 3f
+                    )),
+                modifier = Modifier.padding(10.dp))
         }
 
     }

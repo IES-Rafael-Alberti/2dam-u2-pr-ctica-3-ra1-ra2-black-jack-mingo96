@@ -1,5 +1,6 @@
 package com.example.blackjack.screens
 
+import androidx.activity.compose.BackHandler
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
@@ -15,23 +16,26 @@ import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
 import androidx.navigation.NavHostController
 import com.example.blackjack.clases.Rutas
+import com.example.blackjack.ui.theme.tableGreen
 import com.example.blackjack.viewModels.PartidaViewModel
 
+/**pantalla que ve el jugador al estar en modo vs IA*/
 @Composable
 fun VsIa(navController: NavHostController, viewModel: PartidaViewModel){
+
 
     if(viewModel.partidaTerminada()){
         navController.navigate(Rutas.PantallaResultado.ruta)
     }
 
+    BackHandler{}
 
-
-    if (!viewModel.turnoPublico.value!!) {
+    if (!viewModel.turnoPublico.value!! && !viewModel.jugadorActual().haTerminado) {
         if (viewModel.jugadorActual().haTerminado) viewModel.cambiaTurno()
         Column(
             Modifier
                 .fillMaxSize()
-                .background(Color(29, 110, 0)),
+                .background(tableGreen),
             verticalArrangement = Arrangement.Center,
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
