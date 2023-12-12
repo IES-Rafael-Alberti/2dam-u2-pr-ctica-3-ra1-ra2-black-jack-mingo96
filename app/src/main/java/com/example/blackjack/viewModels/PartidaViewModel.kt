@@ -1,7 +1,7 @@
 package com.example.blackjack.viewModels
 
-import android.annotation.SuppressLint
 import android.app.Application
+import android.content.Context
 import android.widget.Toast
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
@@ -10,11 +10,10 @@ import com.example.blackjack.clases.Baraja
 import com.example.blackjack.clases.Carta
 import com.example.blackjack.clases.Jugador
 
-@SuppressLint("StaticFieldLeak")
 class PartidaViewModel(application: Application) : AndroidViewModel(application) {
 
     /**contexto de la app*/
-    private val contexto = getApplication<Application>().applicationContext
+    private val contexto = MutableLiveData< Context>( getApplication<Application>().applicationContext)
 
     /**booleano del turno, falso es jug1, falso es jug2*/
     private val turno = MutableLiveData(false)
@@ -32,7 +31,7 @@ class PartidaViewModel(application: Application) : AndroidViewModel(application)
 
     /**reinicia todos los datos y da dos cartas a cada jugador*/
     fun iniciar(){
-        Baraja.crearBaraja(contexto)
+        Baraja.crearBaraja(contexto.value!!)
         Baraja.barajar()
         jugador1.value = Jugador()
         jugador2.value = Jugador()
@@ -95,10 +94,10 @@ class PartidaViewModel(application: Application) : AndroidViewModel(application)
     /**intenta robar cartas, aunque no sea fisicamente posible, cubre el caso de que no con un toast
      * y comprueba si el jugador se ha pasado*/
     fun darCarta(){
-        if (!robarCarta()) Toast.makeText(contexto,"no hay mas cartas",Toast.LENGTH_SHORT).show()
+        if (!robarCarta()) Toast.makeText(contexto.value,"no hay mas cartas",Toast.LENGTH_SHORT).show()
         if (jugadorActual().sePasa()) {
             jugadorActual().haTerminado = true
-            Toast.makeText(contexto,"el jugador ${if(!turno.value!!) 1 else 2} se ha pasado", Toast.LENGTH_SHORT).show()
+            Toast.makeText(contexto.value,"el jugador ${if(!turno.value!!) 1 else 2} se ha pasado", Toast.LENGTH_SHORT).show()
         }
     }
 
@@ -118,10 +117,10 @@ class PartidaViewModel(application: Application) : AndroidViewModel(application)
             if (jugadorActual().calcularPuntuacion() + Baraja.listaCartas.last().puntosMin > 21) {
                 pasar()
                 jugadorActual().haTerminado = true
-                Toast.makeText(contexto, "El rival ha pasado", Toast.LENGTH_SHORT).show()
+                Toast.makeText(contexto.value, "El rival ha pasado", Toast.LENGTH_SHORT).show()
             } else {
                 if (!jugadorActual().haTerminado) robarCarta()
-                Toast.makeText(contexto, "El rival ha cogido otra carta", Toast.LENGTH_SHORT).show()
+                Toast.makeText(contexto.value, "El rival ha cogido otra carta", Toast.LENGTH_SHORT).show()
             }
         }
         turno.value = !turno.value!!
