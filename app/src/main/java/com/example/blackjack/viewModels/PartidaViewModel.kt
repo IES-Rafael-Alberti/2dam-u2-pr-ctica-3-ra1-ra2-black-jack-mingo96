@@ -128,11 +128,11 @@ class PartidaViewModel(application: Application) : AndroidViewModel(application)
     }
 
     /**según los datos de los jugadores, devuelve el resultado*/
-    fun compararDatos():String{
-        val resultado1 = jugador1.value!!.sePasa()
-        val resultado2 = jugador2.value!!.sePasa()
-
-        return if (resultado1 && resultado2){
+    fun compararDatos(
+        resultado1: Boolean = jugador1.value!!.sePasa(),
+        resultado2: Boolean = jugador2.value!!.sePasa()
+    ):String =
+        if (resultado1 && resultado2){
             "Nadie gana"
         } else if(resultado1){
             "Gana jugador 2, jugador 1 se pasó"
@@ -147,5 +147,5 @@ class PartidaViewModel(application: Application) : AndroidViewModel(application)
                 "Gana jugador 2 por puntuacion"
             } else "Empate por puntuaciones iguales"
         }
-    }
+
 }
