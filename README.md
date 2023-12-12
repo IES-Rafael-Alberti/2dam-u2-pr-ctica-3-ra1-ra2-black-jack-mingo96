@@ -1,6 +1,11 @@
 [![Review Assignment Due Date](https://classroom.github.com/assets/deadline-readme-button-24ddc0f5d75046c5622901739e7c5dd533143b0c8e959d652212380cedb1ea36.svg)](https://classroom.github.com/a/2k2-pIk4)
 # Práctica 3 - Black Jack
 
+# RAMAS
+
+##    La rama main contiene el estado definitivo
+##    La rama SinModelViewConLazyRow contiene la variación de antes de implementar viewmodel, y las cartas se ven en un LazyRow
+
 ## Desarrollo de un Juego de Blackjack con Modos de Juego y Clases Adicionales
 
 ### Objetivo:
