@@ -11,7 +11,6 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
 import androidx.navigation.NavHostController
@@ -27,9 +26,10 @@ fun VsIa(navController: NavHostController, viewModel: PartidaViewModel){
     if(viewModel.partidaTerminada()){
         navController.navigate(Rutas.PantallaResultado.ruta)
     }
-
+    //anulamos backhandler
     BackHandler{}
 
+    //si no hemos terminado y es nuestro turno, muestra la pantalla normal
     if (!viewModel.turnoPublico.value!! && !viewModel.jugadorActual().haTerminado) {
         if (viewModel.jugadorActual().haTerminado) viewModel.cambiaTurno()
         Column(
@@ -60,7 +60,7 @@ fun VsIa(navController: NavHostController, viewModel: PartidaViewModel){
         }
     }else
     {
-        viewModel.turnoDeIa()
+        if(viewModel.turnoPublico.value!!)viewModel.turnoDeIa()
     }
 
 }
