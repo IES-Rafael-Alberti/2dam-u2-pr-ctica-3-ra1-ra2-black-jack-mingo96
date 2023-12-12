@@ -139,9 +139,11 @@ class PartidaViewModel(application: Application) : AndroidViewModel(application)
         } else if (resultado2){
             "Gana jugador 1, jugador 2 se pasó"
         } else{
-            if (jugador1.value!!.calcularPuntuacion()>jugador2.value!!.calcularPuntuacion()){
+            val punt1 = jugador1.value!!.calcularPuntuacion()
+            val punt2 = jugador2.value!!.calcularPuntuacion()
+            if (punt1>punt2){
                 "Gana jugador 1 por puntuacion"
-            } else if (jugador1.value!!.calcularPuntuacion()<jugador2.value!!.calcularPuntuacion()){
+            } else if (punt1<punt2){
                 "Gana jugador 2 por puntuacion"
             } else "Empate por puntuaciones iguales"
         }
