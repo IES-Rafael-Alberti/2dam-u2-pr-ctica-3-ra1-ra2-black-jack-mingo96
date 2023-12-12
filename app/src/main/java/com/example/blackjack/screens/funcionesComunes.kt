@@ -30,9 +30,9 @@ import com.example.blackjack.viewModels.PartidaViewModel
 /**genera un texto dado el viewmodel de la partida, texto superior que indica el jugador actual,
  * y si ha terminado el otro, lo indica*/
 @Composable
-fun TextoJugador(viewModel: PartidaViewModel){
-    Text(text = "Turno del jugador ${if (viewModel.turnoPublico.value!!) "2" else "1"}" +
-            if(viewModel.rivalHaTerminado()) ", el jugador contrario ya terminó" else "",
+fun TextoJugador(controladorPartida: PartidaViewModel){
+    Text(text = "Turno del jugador ${if (controladorPartida.turnoPublico.value!!) "2" else "1"}" +
+            if(controladorPartida.rivalHaTerminado()) ", el jugador contrario ya terminó" else "",
         textAlign = TextAlign.Center, style = TextStyle(Color.White, fontSize = 20.sp)
     )
 }
@@ -40,7 +40,7 @@ fun TextoJugador(viewModel: PartidaViewModel){
 /**muestra las cartas del [PartidaViewModel.jugadorActual] con un formato en el cual las cartas se
  * solapan mostrando el puntaje de la anterior*/
 @Composable
-fun MostrarCartasConFormato(viewModel: PartidaViewModel){
+fun MostrarCartasConFormato(controladorPartida: PartidaViewModel){
     Box(
         Modifier
             .fillMaxHeight(0.5f)
@@ -50,7 +50,7 @@ fun MostrarCartasConFormato(viewModel: PartidaViewModel){
         var x = (-40).dp
         var y = 0.dp
 
-        for ((indice, carta) in viewModel.manoDeEsteTurno().withIndex()) {
+        for ((indice, carta) in controladorPartida.manoDeEsteTurno().withIndex()) {
             MostrarCarta(carta = carta, x = x, y = y)
 
             //en caso improvable de que hayan mas de 9 cartas en pantalla, las mostramos un poquito abajo
@@ -83,7 +83,7 @@ fun MostrarCarta(carta: Carta, x: Dp = 0.dp, y: Dp = 0.dp){
 
 /**muestra los botones con los que interactúa el jugador actual*/
 @Composable
-fun Botones(viewModel: PartidaViewModel, navController: NavController){
+fun Botones(controladorPartida: PartidaViewModel, navController: NavController){
     Row(
         Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.SpaceEvenly
     ) {
@@ -95,7 +95,7 @@ fun Botones(viewModel: PartidaViewModel, navController: NavController){
                 .fillMaxWidth(0.45f)
                 .clickable {
 
-                    viewModel.darCarta()
+                    controladorPartida.darCarta()
                     navController.navigate(Rutas.PantallaCambioTurno.ruta)
 
                 })
@@ -106,7 +106,7 @@ fun Botones(viewModel: PartidaViewModel, navController: NavController){
                 .padding(10.dp)
                 .fillMaxWidth()
                 .clickable {
-                    viewModel.pasar()
+                    controladorPartida.pasar()
                     navController.navigate(Rutas.PantallaCambioTurno.ruta)
                 })
     }

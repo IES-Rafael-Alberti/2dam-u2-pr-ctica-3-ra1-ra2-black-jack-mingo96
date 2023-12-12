@@ -20,18 +20,18 @@ import com.example.blackjack.viewModels.PartidaViewModel
 
 /**pantalla que ve el jugador al estar en modo vs IA*/
 @Composable
-fun VsIa(navController: NavHostController, viewModel: PartidaViewModel){
+fun VsIa(navController: NavHostController, controladorPartida: PartidaViewModel){
 
 
-    if(viewModel.partidaTerminada()){
+    if(controladorPartida.partidaTerminada()){
         navController.navigate(Rutas.PantallaResultado.ruta)
     }
     //anulamos backhandler
     BackHandler{}
 
     //si no hemos terminado y es nuestro turno, muestra la pantalla normal
-    if (!viewModel.turnoPublico.value!! && !viewModel.jugadorActual().haTerminado) {
-        if (viewModel.jugadorActual().haTerminado) viewModel.cambiaTurno()
+    if (!controladorPartida.turnoPublico.value!! && !controladorPartida.jugadorActual().haTerminado) {
+        if (controladorPartida.jugadorActual().haTerminado) controladorPartida.cambiaTurno()
         Column(
             Modifier
                 .fillMaxSize()
@@ -39,10 +39,10 @@ fun VsIa(navController: NavHostController, viewModel: PartidaViewModel){
             verticalArrangement = Arrangement.Center,
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
-            TextoJugador(viewModel = viewModel)
+            TextoJugador(controladorPartida = controladorPartida)
 
             //esto es la gestion de como se muestran las cartas
-            if (viewModel.manoDeEsteTurno().isEmpty()) {
+            if (controladorPartida.manoDeEsteTurno().isEmpty()) {
                 Image(
                     painter = painterResource(id = cartaBocaabajo),
                     contentDescription = "bocaAbajo",
@@ -52,15 +52,15 @@ fun VsIa(navController: NavHostController, viewModel: PartidaViewModel){
                         .fillMaxWidth()
                 )
             } else {
-                MostrarCartasConFormato(viewModel = viewModel)
+                MostrarCartasConFormato(controladorPartida = controladorPartida)
             }
 
-            Botones(viewModel = viewModel, navController = navController)
+            Botones(controladorPartida = controladorPartida, navController = navController)
 
         }
     }else
     {
-        if(viewModel.turnoPublico.value!!)viewModel.turnoDeIa()
+        if(controladorPartida.turnoPublico.value!!)controladorPartida.turnoDeIa()
     }
 
 }

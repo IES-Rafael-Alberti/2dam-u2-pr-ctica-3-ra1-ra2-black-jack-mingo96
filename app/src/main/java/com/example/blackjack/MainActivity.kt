@@ -49,7 +49,7 @@ class MainActivity : ComponentActivity() {
                         exitTransition = { ExitTransition.None}){
 
                         Pantallapvp(navController = navController,
-                            viewModel = pvpViewModel
+                            controladorPartida = pvpViewModel
                         )
                     }
 

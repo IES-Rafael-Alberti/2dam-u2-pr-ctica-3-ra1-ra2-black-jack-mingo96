@@ -31,12 +31,12 @@ import com.example.blackjack.ui.theme.tableGreen
 
 /**escena que se muestra al acabar una partida*/
 @Composable
-fun Resultado(navController: NavController, pvpViewModel: PartidaViewModel) {
+fun Resultado(navController: NavController, controladorPartida: PartidaViewModel) {
 
     //el backhandler hace lo mismo que el botón de salir
     BackHandler {
         navController.navigate(Rutas.PantallaInicio.ruta)
-        pvpViewModel.iniciar()
+        controladorPartida.iniciar()
     }
 
     Column(
@@ -51,10 +51,10 @@ fun Resultado(navController: NavController, pvpViewModel: PartidaViewModel) {
         ResultadoTexto(offset = offset)
 
         //texto que explica quien ha ganado
-        TextoResultado(pvpViewModel = pvpViewModel, offset = offset)
+        TextoResultado(controladorPartida = controladorPartida, offset = offset)
 
         //boton para salir
-        BotonSalir(navController = navController, pvpViewModel = pvpViewModel, offset = offset)
+        BotonSalir(navController = navController, controladorPartida = controladorPartida, offset = offset)
 
     }
 }
@@ -83,9 +83,9 @@ private fun ResultadoTexto(offset: Offset){
 /**el texto del resultado
  * @param offset es el offset para la sombra*/
 @Composable
-private fun TextoResultado(pvpViewModel: PartidaViewModel, offset: Offset){
+private fun TextoResultado(controladorPartida: PartidaViewModel, offset: Offset){
 
-    Text(text = pvpViewModel.compararDatos(),
+    Text(text = controladorPartida.compararDatos(),
         style = TextStyle(
             fontSize = 40.sp,
             lineHeight = 50.sp,
@@ -104,10 +104,10 @@ private fun TextoResultado(pvpViewModel: PartidaViewModel, offset: Offset){
 /**boton para salir
  * @param offset es el offset para la sombra*/
 @Composable
-private fun BotonSalir(navController: NavController, pvpViewModel:PartidaViewModel, offset:Offset){
+private fun BotonSalir(navController: NavController, controladorPartida:PartidaViewModel, offset:Offset){
     ElevatedButton(onClick = {
         navController.navigate(Rutas.PantallaInicio.ruta)
-        pvpViewModel.iniciar()
+        controladorPartida.iniciar()
     },
         elevation = ButtonDefaults.elevatedButtonElevation(defaultElevation = 20.dp, pressedElevation = 2.dp),
         modifier = Modifier.fillMaxWidth(0.8f),
