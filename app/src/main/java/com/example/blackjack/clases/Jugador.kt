@@ -22,6 +22,7 @@ class Jugador {
         for (carta in mano){
             contador +=carta.puntosMin
         }
+        if (contador<12 && mano.any { it.nombre == Nombre.AS }) contador+=10
         return contador
     }
     /**calcula si el jugador se pasa de 21

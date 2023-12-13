@@ -38,7 +38,7 @@ fun Pantallapvp(navController: NavHostController, controladorPartida: PartidaVie
         Modifier
             .fillMaxSize()
             .background(tableGreen),
-        verticalArrangement = Arrangement.Center,
+        verticalArrangement = Arrangement.SpaceEvenly,
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
         

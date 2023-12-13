@@ -4,6 +4,7 @@ import androidx.compose.foundation.Image
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -11,6 +12,7 @@ import androidx.compose.foundation.layout.offset
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
@@ -31,10 +33,15 @@ import com.example.blackjack.viewModels.PartidaViewModel
  * y si ha terminado el otro, lo indica*/
 @Composable
 fun TextoJugador(controladorPartida: PartidaViewModel){
-    Text(text = "Turno del jugador ${if (controladorPartida.turnoPublico.value!!) "2" else "1"}" +
-            if(controladorPartida.rivalHaTerminado()) ", el jugador contrario ya terminó" else "",
-        textAlign = TextAlign.Center, style = TextStyle(Color.White, fontSize = 20.sp)
-    )
+        Column(Modifier.fillMaxWidth(), horizontalAlignment = Alignment.CenterHorizontally){
+        Text(text = "Turno del jugador ${if (controladorPartida.turnoPublico.value!!) "2" else "1"}" +
+                if(controladorPartida.rivalHaTerminado()) ", el jugador contrario ya terminó" else "",
+            textAlign = TextAlign.Center, style = TextStyle(Color.White, fontSize = 20.sp)
+        )
+        Text(text = "Tu puntuacion actual es de ${controladorPartida.jugadorActual().calcularPuntuacion()} puntos",
+            textAlign = TextAlign.Center, style = TextStyle(Color.White, fontSize = 20.sp)
+        )
+    }
 }
 
 /**muestra las cartas del [PartidaViewModel.jugadorActual] con un formato en el cual las cartas se
