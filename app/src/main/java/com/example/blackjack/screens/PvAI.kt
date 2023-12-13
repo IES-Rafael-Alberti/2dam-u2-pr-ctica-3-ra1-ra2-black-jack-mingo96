@@ -36,7 +36,7 @@ fun VsIa(navController: NavHostController, controladorPartida: PartidaViewModel)
             Modifier
                 .fillMaxSize()
                 .background(tableGreen),
-            verticalArrangement = Arrangement.Center,
+            verticalArrangement = Arrangement.SpaceEvenly,
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
             TextoJugador(controladorPartida = controladorPartida)
