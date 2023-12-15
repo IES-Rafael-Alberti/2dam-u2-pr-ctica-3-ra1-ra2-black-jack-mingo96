@@ -161,7 +161,14 @@ class PartidaViewModel(application: Application) : AndroidViewModel(application)
     /**
      * devuelve el orden de jugadores segun su puntuacion, si son iguales da el 1 primero*/
     fun ordenJugadores(): Pair<Int, Int> {
-        return if (jugador1.value!!.calcularPuntuacion() >= jugador2.value!!.calcularPuntuacion()) Pair(1,2) else Pair(2,1)
+        return if (mayorJugador() == 1){
+            Pair(1, 2)
+        } else Pair(2, 1)
+    }
+
+    fun mayorJugador(): Int {
+        if ((jugador1.value!!.calcularPuntuacion() > jugador2.value!!.calcularPuntuacion() && !jugador1.value!!.sePasa()) || (!jugador1.value!!.sePasa() && jugador2.value!!.sePasa()))
+            return 1 else return 2
     }
 
 }
