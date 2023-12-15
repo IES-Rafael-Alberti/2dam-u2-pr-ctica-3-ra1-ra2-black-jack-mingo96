@@ -33,7 +33,7 @@ fun CambioTurno(navController: NavController, viewModel : PartidaViewModel) {
 
     //guarda si el boton para ocultar los datos del jugador ha sido pulsado
     var botonPulsado by rememberSaveable {
-        mutableStateOf(viewModel.rivalHaTerminado())
+        mutableStateOf(viewModel.actualHaTerminado())
     }
 
     //tiene el mismo efecto que pasar turno

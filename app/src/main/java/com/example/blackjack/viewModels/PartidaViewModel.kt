@@ -91,6 +91,8 @@ class PartidaViewModel(application: Application) : AndroidViewModel(application)
      * @return `true` si el rival ha terminado ya, `false` si el rival no ha terminado*/
     fun rivalHaTerminado():Boolean = jugadorRival().haTerminado
 
+    fun actualHaTerminado():Boolean = jugadorActual().haTerminado
+
     /**intenta robar cartas, aunque no sea fisicamente posible, cubre el caso de que no con un toast
      * y comprueba si el jugador se ha pasado*/
     fun darCarta(){
@@ -114,9 +116,9 @@ class PartidaViewModel(application: Application) : AndroidViewModel(application)
     /**tunro de la IA, si se pasa con la siguiente carta no la pilla y pasa, muestra con toast lo que ha hecho*/
     fun turnoDeIa(){
         if(!jugadorActual().haTerminado) {
+            if(jugadorActual().calcularPuntuacion()>jugadorRival().calcularPuntuacion() && jugadorRival().haTerminado) pasar()
             if (jugadorActual().calcularPuntuacion() + Baraja.listaCartas.last().puntosMin > 21) {
                 pasar()
-                jugadorActual().haTerminado = true
                 Toast.makeText(contexto.value, "El rival ha pasado", Toast.LENGTH_SHORT).show()
             } else {
                 if (!jugadorActual().haTerminado) robarCarta()
