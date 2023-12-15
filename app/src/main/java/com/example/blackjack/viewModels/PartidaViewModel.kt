@@ -1,7 +1,6 @@
 package com.example.blackjack.viewModels
 
 import android.app.Application
-import android.content.Context
 import android.widget.Toast
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
@@ -13,7 +12,7 @@ import com.example.blackjack.clases.Jugador
 class PartidaViewModel(application: Application) : AndroidViewModel(application) {
 
     /**contexto de la app*/
-    private val contexto = MutableLiveData< Context>( getApplication<Application>().applicationContext)
+    private val contexto = MutableLiveData( getApplication<Application>().applicationContext)
 
     /**booleano del turno, falso es jug1, falso es jug2*/
     private val turno = MutableLiveData(false)
@@ -152,10 +151,10 @@ class PartidaViewModel(application: Application) : AndroidViewModel(application)
     /**
      * devuelve la mano dado un numero de jugador*/
     fun manojugador(jugador: Int): MutableList<Carta> {
-        if (jugador==1){
-            return jugador1.value!!.mano
+        return if (jugador==1){
+            jugador1.value!!.mano
         }else
-            return jugador2.value!!.mano
+            jugador2.value!!.mano
     }
 
     /**
@@ -166,9 +165,9 @@ class PartidaViewModel(application: Application) : AndroidViewModel(application)
         } else Pair(2, 1)
     }
 
-    fun mayorJugador(): Int {
-        if ((jugador1.value!!.calcularPuntuacion() > jugador2.value!!.calcularPuntuacion() && !jugador1.value!!.sePasa()) || (!jugador1.value!!.sePasa() && jugador2.value!!.sePasa()))
-            return 1 else return 2
+    private fun mayorJugador(): Int {
+        return if ((jugador1.value!!.calcularPuntuacion() > jugador2.value!!.calcularPuntuacion() && !jugador1.value!!.sePasa()) || (!jugador1.value!!.sePasa() && jugador2.value!!.sePasa()))
+            1 else 2
     }
 
 }
