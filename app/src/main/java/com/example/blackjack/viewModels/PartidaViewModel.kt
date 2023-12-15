@@ -147,4 +147,19 @@ class PartidaViewModel(application: Application) : AndroidViewModel(application)
             } else "Empate por puntuaciones iguales"
         }
 
+    /**
+     * devuelve la mano dado un numero de jugador*/
+    fun manojugador(jugador: Int): MutableList<Carta> {
+        if (jugador==1){
+            return jugador1.value!!.mano
+        }else
+            return jugador2.value!!.mano
+    }
+
+    /**
+     * devuelve el orden de jugadores segun su puntuacion, si son iguales da el 1 primero*/
+    fun ordenJugadores(): Pair<Int, Int> {
+        return if (jugador1.value!!.calcularPuntuacion() >= jugador2.value!!.calcularPuntuacion()) Pair(1,2) else Pair(2,1)
+    }
+
 }

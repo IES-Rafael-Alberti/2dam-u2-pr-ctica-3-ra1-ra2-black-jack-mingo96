@@ -51,10 +51,10 @@ fun Resultado(navController: NavController, controladorPartida: PartidaViewModel
         ResultadoTexto(offset = offset)
 
         //texto que explica quien ha ganado
-        TextoResultado(controladorPartida = controladorPartida, offset = offset)
+        CuadroResultado(controladorPartida = controladorPartida, offset = offset)
 
         //boton para salir
-        BotonSalir(navController = navController, controladorPartida = controladorPartida, offset = offset)
+        BotonSalir(navController = navController, offset = offset)
 
     }
 }
@@ -83,7 +83,7 @@ private fun ResultadoTexto(offset: Offset){
 /**el texto del resultado
  * @param offset es el offset para la sombra*/
 @Composable
-private fun TextoResultado(controladorPartida: PartidaViewModel, offset: Offset){
+private fun CuadroResultado(controladorPartida: PartidaViewModel, offset: Offset){
 
     Text(text = controladorPartida.compararDatos(),
         style = TextStyle(
@@ -99,23 +99,26 @@ private fun TextoResultado(controladorPartida: PartidaViewModel, offset: Offset)
             )),
         modifier = Modifier.padding(10.dp)
     )
+    //representa las dos manos ordenadas por puntuación
+    MostrarCartasConFormato(controladorPartida = controladorPartida, jugador = controladorPartida.ordenJugadores().first)
+    MostrarCartasConFormato(controladorPartida = controladorPartida, jugador = controladorPartida.ordenJugadores().second)
+    
 }
 
 /**boton para salir
  * @param offset es el offset para la sombra*/
 @Composable
-private fun BotonSalir(navController: NavController, controladorPartida:PartidaViewModel, offset:Offset){
+private fun BotonSalir(navController: NavController, offset:Offset){
     ElevatedButton(onClick = {
         navController.navigate(Rutas.PantallaInicio.ruta)
-        controladorPartida.iniciar()
     },
         elevation = ButtonDefaults.elevatedButtonElevation(defaultElevation = 20.dp, pressedElevation = 2.dp),
         modifier = Modifier.fillMaxWidth(0.8f),
         colors = ButtonDefaults.buttonColors(containerColor = Brown)) {
         Text(text = "Pulsa para volver al menú principal",
             style = TextStyle(
-                fontSize = 30.sp,
-                lineHeight = 35.sp,
+                fontSize = 25.sp,
+                lineHeight = 30.sp,
                 color = Color.White,
                 textAlign = TextAlign.Center,
                 fontWeight = FontWeight.Bold,

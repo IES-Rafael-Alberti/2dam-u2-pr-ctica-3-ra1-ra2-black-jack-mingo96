@@ -45,9 +45,11 @@ fun TextoJugador(controladorPartida: PartidaViewModel){
 }
 
 /**muestra las cartas del [PartidaViewModel.jugadorActual] con un formato en el cual las cartas se
- * solapan mostrando el puntaje de la anterior*/
+ * solapan mostrando el puntaje de la anterior
+ * @param jugador de base es 0, en cuyo caso es para acceder a los datos de partida normal, si es otro,
+ * es para sacar la mano de un jugador concreto*/
 @Composable
-fun MostrarCartasConFormato(controladorPartida: PartidaViewModel){
+fun MostrarCartasConFormato(controladorPartida: PartidaViewModel, jugador:Int = 0){
     Box(
         Modifier
             .fillMaxHeight(0.5f)
@@ -57,7 +59,9 @@ fun MostrarCartasConFormato(controladorPartida: PartidaViewModel){
         var x = (-40).dp
         var y = 0.dp
 
-        for ((indice, carta) in controladorPartida.manoDeEsteTurno().withIndex()) {
+        val manoDeEsteTurno = if (jugador==0){ controladorPartida.manoDeEsteTurno()} else {controladorPartida.manojugador(jugador)}
+
+        for ((indice, carta) in manoDeEsteTurno.withIndex()) {
             MostrarCarta(carta = carta, x = x, y = y)
 
             //en caso improvable de que hayan mas de 9 cartas en pantalla, las mostramos un poquito abajo
@@ -90,12 +94,12 @@ fun MostrarCarta(carta: Carta, x: Dp = 0.dp, y: Dp = 0.dp){
 
 /**muestra los botones con los que interactúa el jugador actual*/
 @Composable
-fun Botones(controladorPartida: PartidaViewModel, navController: NavController){
+fun Botones(controladorPartida: PartidaViewModel, navController: NavController) {
     Row(
         Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.SpaceEvenly
     ) {
         Image(painter = painterResource(id = R.drawable.mano),
-            contentDescription ="otra carta",
+            contentDescription = "otra carta",
             contentScale = ContentScale.Crop,
             modifier = Modifier
                 .padding(10.dp)

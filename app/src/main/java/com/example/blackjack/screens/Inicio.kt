@@ -17,24 +17,31 @@ import androidx.compose.ui.unit.dp
 import androidx.navigation.NavHostController
 import com.example.blackjack.R
 import com.example.blackjack.clases.Rutas
+import com.example.blackjack.viewModels.PartidaViewModel
 
 /**escena que permite al jugador seleccionar modo de juego, [Pantallapvp], o [VsIa]*/
 @Composable
-fun EleccionModo(navController: NavHostController){
+fun EleccionModo(navController: NavHostController, controladorPartidaViewModel: PartidaViewModel){
     Column(modifier = Modifier.fillMaxSize(),
         verticalArrangement = Arrangement.SpaceEvenly,
         horizontalAlignment = Alignment.CenterHorizontally) {
 
         Image(painter = painterResource(id = R.drawable.pvp),
             contentDescription = "img1v1",
-            Modifier.clickable { navController.navigate(Rutas.Pantalla1vs1.ruta)}
+            Modifier.clickable {
+                navController.navigate(Rutas.Pantalla1vs1.ruta)
+                controladorPartidaViewModel.iniciar()
+            }
                 .fillMaxWidth()
                 .clip(RoundedCornerShape(16.dp)),
             contentScale = ContentScale.FillWidth)
 
         Image(painter = painterResource(id = R.drawable.solo),
-            contentDescription = "img1v1",
-            Modifier.clickable { navController.navigate(Rutas.PantallavsIA.ruta) }
+            contentDescription = "imgpvai",
+            Modifier.clickable {
+                navController.navigate(Rutas.PantallavsIA.ruta)
+                controladorPartidaViewModel.iniciar()
+            }
                 .fillMaxWidth()
                 .clip(RoundedCornerShape(16.dp)),
             contentScale = ContentScale.FillWidth)

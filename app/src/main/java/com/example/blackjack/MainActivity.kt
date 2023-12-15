@@ -23,7 +23,7 @@ import com.example.blackjack.viewModels.PartidaViewModel
 
 class MainActivity : ComponentActivity() {
 
-    private val pvpViewModel : PartidaViewModel by viewModels()
+    private val controladorPartidaViewModel : PartidaViewModel by viewModels()
 
     @RequiresApi(Build.VERSION_CODES.TIRAMISU)
     @SuppressLint("SourceLockedOrientationActivity")
@@ -42,30 +42,30 @@ class MainActivity : ComponentActivity() {
                 NavHost(navController = navController, startDestination = Rutas.PantallaInicio.ruta) {
 
                     composable(Rutas.PantallaInicio.ruta) {
-                        EleccionModo(navController = navController)
+                        EleccionModo(navController = navController, controladorPartidaViewModel = controladorPartidaViewModel)
                     }
                     
                     composable(Rutas.Pantalla1vs1.ruta,
                         exitTransition = { ExitTransition.None}){
 
                         Pantallapvp(navController = navController,
-                            controladorPartida = pvpViewModel
+                            controladorPartida = controladorPartidaViewModel
                         )
                     }
 
 
                     composable(Rutas.PantallavsIA.ruta,
                         exitTransition = { ExitTransition.None}){
-                        VsIa(navController = navController, pvpViewModel)
+                        VsIa(navController = navController, controladorPartidaViewModel)
                     }
 
                     composable(Rutas.PantallaCambioTurno.ruta
                     ){
-                        CambioTurno(navController = navController, pvpViewModel)
+                        CambioTurno(navController = navController, controladorPartidaViewModel)
                     }
 
                     composable(Rutas.PantallaResultado.ruta){
-                        Resultado(navController, pvpViewModel)
+                        Resultado(navController, controladorPartidaViewModel)
                     }
                 }
             }
